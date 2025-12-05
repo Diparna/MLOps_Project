@@ -59,8 +59,8 @@ df = load_data()
 
 @st.cache_resource
 def load_model():
-    #url = "https://raw.githubusercontent.com/Diparna/MLOps_Project/main/xgb_model.pkl"
-    url = "https://github.com/Diparna/MLOps_Project/raw/main/xgb_model.pkl"
+    url = "https://raw.githubusercontent.com/Diparna/MLOps_Project/main/xgb_model.pkl"
+    #url = "https://github.com/Diparna/MLOps_Project/raw/main/xgb_model.pkl"
     resp = requests.get(url)
     resp.raise_for_status()  # will show a clear error in the app if something is wrong
 
