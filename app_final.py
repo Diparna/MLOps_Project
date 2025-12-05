@@ -38,15 +38,16 @@ page = st.sidebar.radio("Navigation", ["Prediction", "Monitoring", "Map Explorer
 
 @st.cache_data
 def load_data():
-    #url = "https://github.com/Diparna/MLOps_Project/raw/main/df_clean.parquet"
-    #df = pd.read_parquet(url)
-    #return df
-
     url = "https://github.com/Diparna/MLOps_Project/raw/main/df_clean.parquet"
-    resp = requests.get(url)
-    resp.raise_for_status()
+    df = pd.read_parquet(url)
+    return df
 
-    df = pd.read_parquet(io.BytesIO(resp.content))
+    #url = "https://github.com/Diparna/MLOps_Project/raw/main/df_clean.parquet"
+    #resp = requests.get(url)
+    #resp.raise_for_status()
+
+    #df = pd.read_parquet(io.BytesIO(resp.content))
+    #df = pd.read_parquet(url)
 
     # Ensure datetime type
     df["Start_Time"] = pd.to_datetime(df["Start_Time"], errors="coerce")
