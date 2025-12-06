@@ -709,7 +709,8 @@ elif page == "Route Risk Simulator":
 
             st.pydeck_chart(
                 pdk.Deck(
-                    map_style="mapbox://styles/mapbox/light-v9",
+                    #map_style="mapbox://styles/mapbox/light-v9",
+                    map_style="road",
                     initial_view_state=view_state,
                     layers=[route_layer, risk_points_layer],
                     tooltip=tooltip,
