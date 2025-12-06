@@ -44,6 +44,7 @@ def load_data():
         file_names = z.namelist()
         with z.open('small_df.csv') as csv_file:
             df = pd.read_csv(csv_file, low_memory=False)
+    df["Start_Time"] = pd.to_datetime(df["Start_Time"], errors="coerce")
     return df
 
 df = load_data()
