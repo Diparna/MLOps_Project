@@ -9,6 +9,9 @@ import pickle
 import requests
 import zipfile
 import io
+import os
+import requests
+from pathlib import Path
 
 
 with st.sidebar:
@@ -36,18 +39,31 @@ with st.sidebar:
 page = st.sidebar.radio("Navigation", ["Prediction", "Monitoring", "Map Explorer", "Route Hotspots","Route Risk Simulator"])
 
 # ---------- Data loading ----------
+PARQUET_URL = (
+    "https://github.com/Diparna/MLOps_Project/"
+    "releases/download/dataset/small_df.parquet"
+)
 
-@st.cache_data
+LOCAL_PARQUET = Path("data/small_df.parquet")
+
+@st.cache_data(show_spinner=True)
 def load_data():
-    parquet_url = "https://raw.githubusercontent.com/Diparna/MLOps_Project/main/small_df.parquet"
-    resp = requests.get(parquet_url, timeout=60)
-    resp.raise_for_status()
+    LOCAL_PARQUET.parent.mkdir(parents=True, exist_ok=True)
 
-    df = pd.read_parquet(io.BytesIO(resp.content))
-    df["Start_Time"] = pd.to_datetime(df["Start_Time"], errors="coerce")
+    # Download only once
+    if not LOCAL_PARQUET.exists():
+        with requests.get(PARQUET_URL, stream=True, timeout=300) as r:
+            r.raise_for_status()
+            with open(LOCAL_PARQUET, "wb") as f:
+                for chunk in r.iter_content(chunk_size=1024 * 1024):  # 1 MB chunks
+                    if chunk:
+                        f.write(chunk)
+
+    df = pd.read_parquet(LOCAL_PARQUET)
     return df
 
 df = load_data()
+
 
 # ---------- Model loading ----------
 

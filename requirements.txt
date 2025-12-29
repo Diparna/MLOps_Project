@@ -8,4 +8,7 @@ seaborn
 joblib
 plotly
 pyarrow
+<<<<<<< HEAD
 mlflow
+=======
+>>>>>>> 3e62772 (Hoping to make it work again)
