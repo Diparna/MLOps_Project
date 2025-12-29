@@ -293,7 +293,7 @@ elif page == "Map Explorer":
         )
 
         st.caption(
-            "Bubble color shows severity (green → red). "
+            "Bubble color shows severity (green -> red). "
             "Use the filters above to explore different years, states, and severities."
         )
 
