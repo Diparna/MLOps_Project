@@ -39,11 +39,11 @@ page = st.sidebar.radio("Navigation", ["Prediction", "Monitoring", "Map Explorer
 
 @st.cache_data
 def load_data():
-    zip_file_path = 'small_df.csv.zip'
-    with zipfile.ZipFile(zip_file_path, 'r') as z:
-        file_names = z.namelist()
-        with z.open('small_df.csv') as csv_file:
-            df = pd.read_csv(csv_file, low_memory=False)
+    parquet_url = "https://raw.githubusercontent.com/Diparna/MLOps_Project/main/small_df.parquet"
+    resp = requests.get(parquet_url, timeout=60)
+    resp.raise_for_status()
+
+    df = pd.read_parquet(io.BytesIO(resp.content))
     df["Start_Time"] = pd.to_datetime(df["Start_Time"], errors="coerce")
     return df
 
