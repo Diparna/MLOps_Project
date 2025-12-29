@@ -7,4 +7,5 @@ matplotlib
 seaborn
 joblib
 plotly
+pyarrow
 mlflow
